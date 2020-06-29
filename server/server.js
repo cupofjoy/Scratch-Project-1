@@ -1,6 +1,10 @@
 const path = require('path');
 const express = require('express');
 const userController = require('../server/controllers/userController');
+const axios = require('axios');
+const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
+dotenv.config();
 
 const app = express();
 const PORT = 3000;
@@ -10,7 +14,8 @@ const mongoose = require('mongoose');
 const databaseURL = "mongodb+srv://eelan:tung@cluster0-igb2g.mongodb.net/chickencoop?retryWrites=true&w=majority";
 // replce databaseURL with your database key/link
 mongoose.connect(databaseURL, {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 mongoose.connection.once('open', () => {
@@ -28,23 +33,35 @@ app.use(express.urlencoded({
 }));
 app.use(express.json());
 
+app.use(cookieParser());
+
 app.use('/asset', express.static(path.join(__dirname, '../client/asset')));
 
-app.get('*', (req, res) => {
-  console.log('inside the catchall no matching routes');
-  res.sendFile(path.join(__dirname, '../index.html'));
-});
+
 
 app.post('/signup', userController.createUser);
 app.post('/login', userController.verifyUser);
-app.get('/github/callback', (req, res) => {
-  console.log(req);
-})
+
+// app.get('/github/register', (req, res) => {
+//   console.log('github register')
+//   res.redirect("https://github.com/login/oauth/authorize?client_id=7767f930d994a15db0d0&redirect_uri=http://localhost:8080/github/callback")
+// });
+
+
+// https://github.com/login/oauth/access_token
+app.get('/github/callback', userController.getToken, userController.getGithubUser)
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../index.html'));
+});
 
 const server = app.listen(PORT, () => {
   console.log(`listening on ${PORT}`);
 });
 const socket = require('socket.io');
+const {
+  default: Axios
+} = require('axios');
 
 const io = socket(server);
 

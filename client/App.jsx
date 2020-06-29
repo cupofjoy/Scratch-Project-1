@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withCookies } from 'react-cookie';
 
 import NavBar from './component/navigationBar/navBar.js';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
@@ -14,6 +15,15 @@ class App extends Component {
     }
     this.onLogged = this.onLogged.bind(this);
     this.onSignUp = this.onSignUp.bind(this);
+  }
+
+  componentDidMount() {
+    console.log(this.props.cookies.cookies.signedin)
+    if (this.props.cookies.cookies.signedin) {
+      return this.setState({
+        logStatus: true
+      })
+    }
   }
 
   onLogged(username, password) {
@@ -97,4 +107,4 @@ class App extends Component {
 }
 
 
-export default App;
+export default withCookies(App);
