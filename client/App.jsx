@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 import NavBar from './component/navigationBar/navBar.js';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import Login from './component/logedIn/Login';
+import Login from './component/logedIn/Login.jsx';
+import Signup from './component/logedIn/Signup.jsx';
 import Canvas from './component/logedIn/canvas.jsx';
 import Home from './component/logedIn/home'
 class App extends Component {
@@ -20,18 +21,18 @@ class App extends Component {
     console.log(username, password)
     fetch('/login', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password })
     })
-    .then(res => res.json())
-    .then(data => {
-      console.log('onLogged data:', data);
-      this.setState({
-        ... this.state,
-        logStatus: data.logStatus
+      .then(res => res.json())
+      .then(data => {
+        console.log('onLogged data:', data);
+        this.setState({
+          ... this.state,
+          logStatus: data.logStatus
+        })
       })
-    })
-    .catch(err => console.log('err onLogged:', err))
+      .catch(err => console.log('err onLogged:', err))
   }
 
   onSignUp(username, password) {
@@ -39,18 +40,18 @@ class App extends Component {
     console.log(username, password)
     fetch('/signup', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password })
     })
-    .then(res => res.json())
-    .then(data => {
-      console.log('onSignUp data:', data);
-      this.setState({
-        ... this.state,
-        logStatus: data.logStatus
+      .then(res => res.json())
+      .then(data => {
+        console.log('onSignUp data:', data);
+        this.setState({
+          ... this.state,
+          logStatus: data.logStatus
+        })
       })
-    })
-    .catch(err => console.log('err onLogged:', err))
+      .catch(err => console.log('err onLogged:', err))
   }
 
 
@@ -62,30 +63,35 @@ class App extends Component {
     };
 
     let renderLogin;
-    if (!this.state.logStatus) {
-      renderLogin = <Route path="/login" render={(routeProps) => (
-        <Login onSignUp={this.onSignUp}  onLogged={ this.onLogged }/>
-      )} />
-    };
-
+    let renderSignUp;
     let renderHome;
     if (!this.state.logStatus) {
-      renderHome = <Route path="/"  component={Home}/>
+      renderLogin = <Route path="/login" render={(routeProps) => (
+        <Login onLogged={this.onLogged} />
+      )} />
+
+      renderSignUp = <Route path="/signup" render={(routeProps) => (
+        <Signup onSignUp={this.onSignUp} />
+      )} />
+
+      renderHome = <Route path="/" component={Home} />;
     };
+
 
     return (
       <Router>
         <div>
-          <NavBar/>
+          <NavBar />
           <Switch>
             {/* <Route path="/login"  component={Login} /> */}
-            { renderLogin }
+            {renderLogin}
+            {renderSignUp}
             {/* <Route path="/canvas"  component={Canvas}/> */}
-            { renderHome }
+            {renderHome}
           </Switch>
         </div>
-        { renderCanvas }
-    </Router>
+        {renderCanvas}
+      </Router>
     )
   }
 }
