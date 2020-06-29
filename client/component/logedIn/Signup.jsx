@@ -24,7 +24,6 @@ const Signup = (props) => {
 
   return (
     <div className='form'>
-
       <form onSubmit={(e) => handleSubmit(e)}>
         <input name="username" type="text" placeholder="username" id="username" onChange={(e) => handleChange(e)}></input>
         <input name="password" type="password" placeholder="password" id="password" onChange={(e) => handleChange(e)}></input>
