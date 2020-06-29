@@ -37,6 +37,9 @@ app.get('*', (req, res) => {
 
 app.post('/signup', userController.createUser);
 app.post('/login', userController.verifyUser);
+app.get('/github/callback', (req, res) => {
+  console.log(req);
+})
 
 const server = app.listen(PORT, () => {
   console.log(`listening on ${PORT}`);
