@@ -7,9 +7,11 @@ const PORT = 3000;
 
 // --------- database connection ------
 const mongoose = require('mongoose');
-const databaseURL = "";
+const databaseURL = "mongodb+srv://eelan:tung@cluster0-igb2g.mongodb.net/chickencoop?retryWrites=true&w=majority";
 // replce databaseURL with your database key/link
-mongoose.connect(databaseURL, { useNewUrlParser: true });
+mongoose.connect(databaseURL, {
+  useNewUrlParser: true
+});
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 mongoose.connection.once('open', () => {
   console.log('Connected to Mongo Database');
@@ -21,7 +23,9 @@ mongoose.connection.once('open', () => {
 // --------- Schema imports -----------
 
 // parsing requests
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({
+  extended: true
+}));
 app.use(express.json());
 
 app.use('/asset', express.static(path.join(__dirname, '../client/asset')));

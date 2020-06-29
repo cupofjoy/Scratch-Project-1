@@ -8,7 +8,7 @@ class Login extends Component {
 
 
 
-  
+
   componentDidMount() {
     const username = document.getElementById('username');
     const password = document.getElementById('password');
@@ -27,17 +27,16 @@ class Login extends Component {
   }
 
   render() {
-    return(
+    return (
       <div className='form'>
         {/* <form> */}
-          <input name="username" type="text" placeholder="username" id="username"></input>
-          <input name="password" type="password" placeholder="password" id="password"></input>
-          <input type='button' value='Log In' id="login"/>  
+        <input name="username" type="text" placeholder="username" id="username"></input>
+        <input name="password" type="password" placeholder="password" id="password"></input>
+        <input type='button' value='Log In' id="login" />
         {/* </form> */}
         <input type="button" id="signup" name="signup" value="Sign up" />
         {/* path="/login" render={(routeProps) => (
         <Login onLogged={ this.onLogged } */}
-
       </div>
     )
   }
