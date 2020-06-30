@@ -4,6 +4,8 @@ const userController = require('../server/controllers/userController');
 const axios = require('axios');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
+const socket = require('socket.io');
+
 dotenv.config();
 
 const app = express();
@@ -32,13 +34,9 @@ app.use(express.urlencoded({
   extended: true
 }));
 app.use(express.json());
-
 app.use(cookieParser());
 
 app.use('/asset', express.static(path.join(__dirname, '../client/asset')));
-
-
-
 app.post('/signup', userController.createUser);
 app.post('/login', userController.verifyUser);
 
@@ -55,13 +53,13 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html'));
 });
 
-const server = app.listen(PORT, () => {
-  console.log(`listening on ${PORT}`);
-});
-const socket = require('socket.io');
 const {
   default: Axios
 } = require('axios');
+
+const server = app.listen(PORT, () => {
+  console.log(`listening on ${PORT}`);
+});
 
 const io = socket(server);
 
@@ -78,7 +76,7 @@ function newConnection(socket) {
     socket.broadcast.emit('down', data);
   });
   socket.on('message', (newMessage) => {
-    console.log(newMessage)
+    console.log('message received: ', newMessage)
     socket.broadcast.emit('messageBraodcast', newMessage);
   })
 
