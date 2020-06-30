@@ -23,13 +23,13 @@ const Login = (props) => {
   }
 
   return (
-    <div className='form'>
-      <form onSubmit={(e) => handleSubmit(e)}>
+    <div className='form-container'>
+      <form className='form' onSubmit={(e) => handleSubmit(e)}>
         <input name="username" type="text" placeholder="username" id="username" onChange={(e) => handleChange(e)}></input>
         <input name="password" type="password" placeholder="password" id="password" onChange={(e) => handleChange(e)}></input>
         <button type='submit' value='Log In' id="login" >Login</button>
+        <span>Don't have an account? </span> <Link to='/signup'>Register</Link>
       </form>
-      <span>Don't have an account? </span> <Link to='/signup'>Register</Link>
     </div>
   )
 }

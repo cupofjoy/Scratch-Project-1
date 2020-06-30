@@ -23,16 +23,16 @@ const Signup = (props) => {
   }
 
   return (
-    <div className='form'>
-      <form onSubmit={(e) => handleSubmit(e)}>
+    <div className='form-container'>
+      <form className='form' onSubmit={(e) => handleSubmit(e)}>
         <input name="username" type="text" placeholder="username" id="username" onChange={(e) => handleChange(e)}></input>
         <input name="password" type="password" placeholder="password" id="password" onChange={(e) => handleChange(e)}></input>
         <button type='submit' value='Register' id="signup">Register</button>
+        <button>
+          <a href="https://github.com/login/oauth/authorize?client_id=7767f930d994a15db0d0&redirect_uri=http://localhost:8080/github/callback">Login with Github</a>
+        </button>
+        <span>Already have an account? </span> <Link to='/login'>Login</Link>
       </form>
-      <span>Already have an account? </span> <Link to='/login'>Login</Link>
-      <button>
-        <a href="https://github.com/login/oauth/authorize?client_id=7767f930d994a15db0d0&redirect_uri=http://localhost:8080/github/callback">Login with Github</a>
-      </button>
     </div>
   )
 }
