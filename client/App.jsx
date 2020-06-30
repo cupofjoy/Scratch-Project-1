@@ -15,6 +15,7 @@ class App extends Component {
     }
     this.onLogged = this.onLogged.bind(this);
     this.onSignUp = this.onSignUp.bind(this);
+    this.signOut = this.signOut.bind(this);
   }
 
   componentDidMount() {
@@ -24,6 +25,17 @@ class App extends Component {
         logStatus: true
       })
     }
+  }
+
+  signOut(e) {
+    console.log('signOut invoked');
+    const { cookies } = this.props;
+    cookies.remove('signedin');
+
+    this.setState({
+      ...this.state,
+      logStatus: false
+    })
   }
 
   onLogged(username, password) {
@@ -64,8 +76,6 @@ class App extends Component {
       .catch(err => console.log('err onLogged:', err))
   }
 
-
-
   render() {
     let renderCanvas;
     if (this.state.logStatus) {
@@ -91,7 +101,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <NavBar />
+          <NavBar loggedIn={this.state.logStatus} signOut={this.signOut} />
           <Switch>
             {/* <Route path="/login"  component={Login} /> */}
             {renderLogin}
