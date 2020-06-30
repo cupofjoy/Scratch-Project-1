@@ -7,10 +7,16 @@ body {
   font-family: "Ubuntu Light", "Century Gothic", sans-serif;
 }
 
+.form-container {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .form {
-  margin-left: 50%;
+  margin-left: 41%;
   margin-top: 100px;
-  margin-right: 20px;
+  margin-right: 41%;
   padding-top: 20px;
   padding-bottom: 20px;
   display: flex;
@@ -23,12 +29,6 @@ body {
   border-radius: 3%;
   border-color: cadetblue;
   width: 300px;
-}
-
-.form form {
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .form input {
@@ -44,6 +44,7 @@ body {
   border: 1px solid grey;
   width: 150px;
   background-color: white;
+  margin-bottom: 5px;
 }
 
 .form span {
@@ -52,6 +53,12 @@ body {
 
 .form a {
   font-size: 12px;
+  text-decoration: none;
+  color: black;
+}
+
+.form a:visited {
+  color: black;
 }
 
 
