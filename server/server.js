@@ -53,10 +53,6 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html'));
 });
 
-const {
-  default: Axios
-} = require('axios');
-
 const server = app.listen(PORT, () => {
   console.log(`listening on ${PORT}`);
 });

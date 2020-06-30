@@ -23,12 +23,15 @@ const Login = (props) => {
   }
 
   return (
-    <div className='form'>
-      <form onSubmit={(e) => handleSubmit(e)}>
+    <div className='form-container'>
+      <form className='form' onSubmit={(e) => handleSubmit(e)}>
         <input name="username" type="text" placeholder="username" id="username" onChange={(e) => handleChange(e)}></input>
         <input name="password" type="password" placeholder="password" id="password" onChange={(e) => handleChange(e)}></input>
         <button type='submit' value='Log In' id="login" >Login</button>
       </form>
+      <button className='githubButton'>
+        <a href="https://github.com/login/oauth/authorize?client_id=7767f930d994a15db0d0&redirect_uri=http://localhost:8080/github/callback">Login with Github</a>
+      </button>
       <span>Don't have an account? </span> <Link to='/signup'>Register</Link>
     </div>
   )

@@ -100,7 +100,7 @@ class App extends Component {
 
     return (
       <Router>
-        <div>
+        <div className='app'>
           <NavBar loggedIn={this.state.logStatus} signOut={this.signOut} />
           <Switch>
             {/* <Route path="/login"  component={Login} /> */}
