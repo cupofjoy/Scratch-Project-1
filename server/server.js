@@ -13,7 +13,7 @@ const PORT = 3000;
 
 // --------- database connection ------
 const mongoose = require('mongoose');
-const databaseURL = "";
+const databaseURL = process.env.MONGO_URI;
 // replce databaseURL with your database key/link
 mongoose.connect(databaseURL, {
   useNewUrlParser: true,
