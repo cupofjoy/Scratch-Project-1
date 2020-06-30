@@ -100,59 +100,53 @@ export default class Canvas extends Component {
     return (
       <div className='canvas-page'>
         <div>
-            <canvas id="canvas" style={{ backgroundColor: 'gray' }} />
-            <div className='button-div'>
+          <canvas id="canvas" />
+          <div>
             <button
               id="black"
+              className="button-div"
               onClick={() => {
                 this.changeColor('black');
               }}
-            >
-              black
-            </button>
+            >black</button>
             <button
               id="blue"
+              className="button-div"
               onClick={() => {
                 this.changeColor('blue');
               }}
-            >
-              blue
-            </button>
+            >blue</button>
             <button
               id="red"
+              className="button-div"
               onClick={() => {
                 this.changeColor('red');
               }}
-            >
-              red
-            </button>
+            >red</button>
             <button
               id="white"
+              className="button-div"
               onClick={() => {
                 this.changeColor('grey');
               }}
-            >
-              eraser
-            </button>
+            >eraser</button>
             <button
+              className="button-div"
               onClick={() => {
                 this.changeThickness('+');
               }}
-            >
-              +
-            </button>
+            >+</button>
             <button
+              className="button-div"
               onClick={() => {
                 this.changeThickness('-');
               }}
-            >
-              -
-            </button>
-            <button id="clear">clear</button>
-            </div>
+            >-</button>
+            <button id="clear" className="button-div">clear</button>
           </div>
+        </div>
         <div >
-          <Chat className='chat-box'/>
+          <Chat className='chat-box' />
         </div>
       </div>
     );

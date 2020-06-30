@@ -1,74 +1,82 @@
-import React, { Component } from 'react'
+import React, {
+  Component
+} from 'react'
 import WebSocket from 'websocket'
 import '../../Style.css'
 export default class Chat extends Component {
-    constructor() {
-      super()
-      this.state = {
-        messages: [],
-      }
+  constructor() {
+    super()
+    this.state = {
+      messages: [],
+      name: '',
+      message: '',
+      socket: ''
     }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
   componentDidMount() {
-    const socket = io.connect('http://localhost:3000')
-    socket.onmessage = function(event) {
+    const socket = io.connect('http://localhost:3000');
+    this.setState({ socket: socket })
+    socket.onmessage = function (event) {
+      console.log(event)
       const incomingMessages = event.data;
     }
 
-    const onClick = () => {
-        const name= document.getElementById('name')
-        const message= document.getElementById('textField')
-
-        const messages=this.state.messages.slice();
-        const newMessage = {name: name.value, message:message.value};
-        messages.push(newMessage);
-        this.setState({messages});
-        socket.emit('message', newMessage);
-
-        message.value = "";
-    }
-
-    const submitButton = document.getElementById('submit');
-    submitButton.onclick = onClick;
-
+    // when another person adds a message
     socket.on('messageBraodcast', (newMessage) => {
-        const messages = this.state.messages.slice();
-        messages.push(newMessage)
-        console.log('message ', messages)
-      this.setState({messages})
+      const messages = this.state.messages.slice();
+      messages.push(newMessage)
+
+      this.setState({ messages })
     })
   }
-  componentDidUpdate(){
-      console.log(this.state)
+
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value })
   }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const { name, message } = this.state;
+    if (name !== '' && message !== '') {
+      const newMessage = { name, message }
+      const messages = this.state.messages.slice();
+      messages.push(newMessage)
+
+      this.setState({
+        messages,
+        message: ''
+      })
+      this.state.socket.emit('message', newMessage);
+    }
+  }
+
   render() {
     const messages = [];
-    
-    for(let i =0 ; i < this.state.messages.length; i++ ) {
+
+    for (let i = 0; i < this.state.messages.length; i++) {
       const message = this.state.messages[i]
-        messages.push(
-            <div  key={i}>
-             name:{message.name} <br/>
-             {message.message}
-            </div>
-            )
-        }
-        // this.setState({messages: incomingMessages})
-        return (
-            <div  style={{height:'200px'}}>
-                <div className='chat'>
-                    <div className='indivMessage'>
-                    {messages}
-                    </div>
-                </div>
-              <div>
-              <input type="text" id="name" placeholder="name"/><br/>
-                  {/* <label for="message">Message:</label>
-                  <input type="text" id="message" name="message"/> */}
-                  <input type="text" id="textField" placeholder="type message"/><br/>
-                  <button id='submit'>Send</button>
-              </div>
-          </div>
-        )
+      messages.push(
+        <div key={i}>
+          <span className="message-name"><strong>{message.name}: </strong></span>
+          <span classname="message">{message.message}</span>
+        </div>
+      )
     }
+    // this.setState({messages: incomingMessages})
+    return (
+      <div className="chat-box">
+        <form onSubmit={this.handleSubmit}>
+          <input name='name' type="text" id="name" placeholder="Enter your name" onChange={this.handleChange} /><br />
+          <input name='message' type="text" id="textField" placeholder="Message" onChange={this.handleChange} value={this.state.message} /><br />
+          <button id='submit-message'> Send </button>
+        </form>
+        <div className='chat'>
+          <div className='indivMessage' >{messages} </div>
+        </div>
+      </div>
+    )
+  }
 }
