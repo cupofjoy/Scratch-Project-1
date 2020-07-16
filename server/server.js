@@ -79,6 +79,9 @@ function newConnection(socket) {
     console.log('message received: ', newMessage)
     socket.broadcast.emit('messageBraodcast', newMessage);
   })
+  socket.on('undo', () => {
+    socket.broadcast.emit('undoBack');
+  })
 
   // receieves mouse coordinates
   function mouseMsg(data) {

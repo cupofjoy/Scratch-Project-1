@@ -107,11 +107,13 @@ export default class Canvas extends Component {
     const undoButton = document.getElementById('undo');
     undoButton.onclick = () => {
       undo();
+      socket.emit('undo');
     }
     function undo() {
       ctx.putImageData(imageData, 0, 0);
     }
     socket.on('clearBack', clearCanvas);
+    socket.on('undoBack', undo);
   }
 
   changeColor(color) {
