@@ -69,12 +69,12 @@ export default class Chat extends Component {
     return (
       <div className="chat-box">
         <form onSubmit={this.handleSubmit}>
-          <input name='name' type="text" id="name" placeholder="Enter your name" onChange={this.handleChange} /><br />
-          <input name='message' type="text" id="textField" placeholder="Message" onChange={this.handleChange} value={this.state.message} /><br />
+          <input name='name' type="text" id="name" placeholder="Enter your name" value={this.state.name} onChange={this.handleChange} /><br />
+          <input name='message' type="text" id="textField" placeholder="Message" value={this.state.message} onChange={this.handleChange} value={this.state.message} /><br />
           <button id='submit-message'> Send </button>
         </form>
         <div className='chat'>
-          <div className='indivMessage' >{messages} </div>
+          <div className='indivMessage' > {messages} </div>
         </div>
       </div>
     )
